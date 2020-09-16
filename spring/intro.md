@@ -10,7 +10,7 @@ presentation:
 
 <!-- slide -->
 
-# Spring 系列之 IoC 容器
+# Spring 系列之 IoC 容器(Spring5.3)
 
 ## 高鹏
 
@@ -121,7 +121,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
     scan(basePackages);
     refresh();
   }
-  
+
   public void scan(String... basePackages) {
     Assert.notEmpty(basePackages, "At least one base package must be specified");
     this.scanner.scan(basePackages);
