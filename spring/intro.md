@@ -391,22 +391,19 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
   protected void populateBean(String beanName, RootBeanDefinition mbd, @Nullable BeanWrapper bw) {
     ...
     int resolvedAutowireMode = mbd.getResolvedAutowireMode();
-    if (resolvedAutowireMode == AUTOWIRE_BY_NAME || resolvedAutowireMode == AUTOWIRE_BY_TYPE) {
-      MutablePropertyValues newPvs = new MutablePropertyValues(pvs);
-      // 按照name注入
-      if (resolvedAutowireMode == AUTOWIRE_BY_NAME) {
-        autowireByName(beanName, mbd, bw, newPvs);
-      }
-      // 按照类型注入
-      if (resolvedAutowireMode == AUTOWIRE_BY_TYPE) {
-        autowireByType(beanName, mbd, bw, newPvs);
-      }
-      pvs = newPvs;
+    // 按照name注入
+    if (resolvedAutowireMode == AUTOWIRE_BY_NAME) {
+      autowireByName(beanName, mbd, bw, newPvs);
     }
-    ...
-    if (pvs != null) {
-      // 注入
-      applyPropertyValues(beanName, mbd, bw, pvs);
+    // 按照类型注入
+    if (resolvedAutowireMode == AUTOWIRE_BY_TYPE) {
+      autowireByType(beanName, mbd, bw, newPvs);
+    }
+    // 通过注解方式注入
+    // AutowiredAnnotationBeanPostProcessor,CommonAnnotationBeanPostProcessor
+    for (BeanPostProcessor bp : getBeanPostProcessors()) {
+      InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
+      PropertyValues pvsToUse = ibp.postProcessProperties(pvs, bw.getWrappedInstance(), beanName);
     }
   }
 }
