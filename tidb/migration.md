@@ -9,10 +9,11 @@
 
 - 使用 union 时候，null as [string]会出现检测不出编码而乱码，换成'' as [string]
 - 自增主键不是全局有序
-- 不能在单条 ALTER TABLE 语句中完成多个操作
 - CONVERT 按照 GBK 排序不支持，因为 tidb 只支持 ascii/latin1/binary/utf8/utf8mb4 字符集
 
 ## 限制
+
+- 不能在单条 ALTER TABLE 语句中完成多个操作
 
 |    名称    |    限制    |
 | :--------: | :--------: |
