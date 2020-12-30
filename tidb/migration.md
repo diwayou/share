@@ -4,6 +4,7 @@
 
 - ONLY_FULL_GROUP_BY 需要关闭，因为代码大量 select 非 group by 字段
 - @@sql_mode
+- explicit-defaults-for-timestamp需要OFF，要不然时间时间默认值有问题，需要改代码，tidb不支持改这个配置
 
 ## SQL 注意事项
 
@@ -12,6 +13,8 @@
 - CONVERT 按照 GBK 排序不支持，因为 tidb 只支持 ascii/latin1/binary/utf8/utf8mb4 字符集
 
 ## 限制
+
+- 不能嵌套事务，因为不支持savepoint
 
 - 不能在单条 ALTER TABLE 语句中完成多个操作
 
