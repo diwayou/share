@@ -5,6 +5,7 @@
 - ONLY_FULL_GROUP_BY 需要关闭，因为代码大量 select 非 group by 字段
 - @@sql_mode
 - explicit-defaults-for-timestamp需要OFF，要不然时间时间默认值有问题，需要改代码，tidb不支持改这个配置
+- timestamp跟时区有关，需要设置时区
 
 ## SQL 注意事项
 
